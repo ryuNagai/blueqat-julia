@@ -65,6 +65,7 @@ module StateVectorGates
     struct CP <: SV_TwoQubitGate
         _control::Int64
         _target::Int64
+        _theta::Float64
     end
 
     struct CRX <: SV_TwoQubitGate

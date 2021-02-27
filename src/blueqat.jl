@@ -7,7 +7,8 @@ module blueqat
     export QuantumCircuit, Input, apply!, get_device, execute
 
     devices = Dict([("UndirectedGraph", UndirectedGraphModel),
-                    ("StateVector", StateVectorModel)
+                    ("StateVector", StateVectorModel),
+                    ("TensorNetworkStates", TensorNetworkStatesModel),
                         ])
 
     mutable struct QuantumCircuit

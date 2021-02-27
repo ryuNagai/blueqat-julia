@@ -6,14 +6,14 @@ module UndirectedGraphBackend
     using .UndirectedGraphFunctions
     using .BackendModels
 
-    function execute_backend(n_qregs::Int, gates, model)
+    function execute_backend(n_qregs::Int, gates, model, measure_basis)
         backend_gates = call_backend_gates(gates)
         parsed_gates = parse_gates(backend_gates)
         _gates = convert(Array{UG_Gate,1}, parsed_gates)
-        if model.measure_all
+        if length(measure_basis) == 0
             input_state = zeros(Int, n_qregs)
             output_state = zeros(Int, n_qregs)
-            state_vec = []
+            state_vec = Vector{ComplexF64}(undef, 0)
             buckets = create_buckets(n_qregs, _gates, input_state, output_state)
             result = contract_graph(buckets)
             push!(state_vec, result)
@@ -34,14 +34,16 @@ module UndirectedGraphBackend
             end
             return state_vec
         else
-            if length(model.output_basis) != n_qregs
+            if length(measure_basis) != n_qregs
                 error("Measured state length must be equal to qubit number.")
             end
             input_state = zeros(Int, n_qregs)
-            output_state = model.output_basis
+            output_state = measure_basis
             buckets = create_buckets(n_qregs, _gates, input_state, output_state)
             result = contract_graph(buckets)
-            return result
+            state = Vector{ComplexF64}(undef, 0)
+            push!(state, result)
+            return state
         end
         
     end

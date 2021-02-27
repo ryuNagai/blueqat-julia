@@ -81,6 +81,7 @@ module UndirectedGraphGates
     struct CP <: UG_TwoQubitGate
         _control::Int64
         _target::Int64
+        _theta::Float64
     end
 
     # export all UG_Gate and TwoQubitGate

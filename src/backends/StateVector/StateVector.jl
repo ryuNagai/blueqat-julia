@@ -45,6 +45,9 @@ module StateVectorBackend
             push!(states, _state)
             push!(cregs, creg)
         end
+        if length(states) == 1
+            return states[1], cregs
+        end
         return states, cregs
     end
 

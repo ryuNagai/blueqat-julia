@@ -386,8 +386,13 @@ module StateVectorFunctions
         return shifted
     end
 
-    function _exp(theta::Float64)
+    function _exp(theta::ComplexF64)
         thetapi = theta / pi / im
+        if thetapi == conj(thetapi)
+            thetapi = convert(Float64, thetapi)
+        else
+            error("Invalid gate parameters.")
+        end
         res = cospi(thetapi) + im * sinpi(thetapi)
         return res
     end

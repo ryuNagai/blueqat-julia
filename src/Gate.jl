@@ -121,6 +121,16 @@ module GateSet
         return CZ(_control, _target, "CZ")
     end
 
+    struct SWAP <: TwoQubitGate
+        _control::Int64
+        _target::Int64
+        _name::String
+    end
+
+    function SWAP(_control::Int64, _target::Int64)
+        return SWAP(_control, _target, "SWAP")
+    end
+
     struct CP <: TwoQubitGate
         _control::Int64
         _target::Int64
